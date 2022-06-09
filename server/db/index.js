@@ -1,4 +1,4 @@
-const { Pool } = require('pg');
+const { Pool } = require('pg')
 
 const credentials = {
   user: "postgres",
@@ -8,13 +8,19 @@ const credentials = {
   port: 5432,
 };
 
-const pool = new Pool(credentials);
+const pool = new Pool(credentials)
 
-pool.query('SELECT * FROM product ORDER BY id ASC LIMIT 10', (err, res) => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log('the result is', res);
-  }
-});
+pool.query('SELECT NOW()')
+.then((result) => {
+  console.log('Connecting to Database ... ');
+  console.log('Connected at: ', result.rows[0].now)
+})
+.catch((err) => {
+  console.log('Error : ', err)
+})
+
+module.exports = pool
+
+
+
 
