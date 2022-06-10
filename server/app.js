@@ -17,7 +17,7 @@ app.use(cors())
 app.use(express.json())
 
 // set up router
-app.use('/api', router)
+app.use('/', router)
 
 app.listen(app.get('port'), () => {
   console.log('Listening on localhost:', app.get('port'))

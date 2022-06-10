@@ -30,5 +30,8 @@
     "node-postgres": "^0.6.2",
     "pg": "^8.7.3",
     "sequelize": "^6.20.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
   }
 }
