@@ -8,7 +8,7 @@ module.exports = {
   },
   getProductInfo: function(product_id, callback) {
     db.query(`select json_build_object('id', p.id, 'name', p.name, 'slogan', p.slogan, 'description', p.description,
-              'category', p.category, 'default_price', p.default_price, 'feature', 
+              'category', p.category, 'default_price', p.default_price, 'features', 
               (select array_to_json(array_agg(json_build_object('feature', f.feature, 'value', f.value)))
               from features as f 
               where f.product_id = ${product_id}))

@@ -4,7 +4,7 @@ module.exports = {
   getProducts: function (req, res) {
     model.getProducts((err, result) => {
       if (err) { res.status(404).json(err) }
-      else { res.status(200).json(result) }
+      else { res.status(200).json(result); console.log(res.header) }
     })
   },
   getProductInfo: function (req, res) {
