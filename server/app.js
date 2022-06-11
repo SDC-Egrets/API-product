@@ -3,7 +3,6 @@ const router = require('./router.js')
 
 // Middleware
 const cors = require('cors')
-const morgan = require('morgan')
 
 const app = express()
 module.exports = app
@@ -12,7 +11,6 @@ module.exports = app
 app.set('port', 3000)
 
 // Logging and parsing
-app.use(morgan('dev'))
 app.use(cors())
 app.use(express.json())
 
