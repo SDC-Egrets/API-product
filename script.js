@@ -6,8 +6,8 @@ export const options = {
     { duration: '30s', target: 90 },
     { duration: '1m30s', target: 100 },
     { duration: '20s', target: 70 },
-    { duration: '1m', target: 200 },
-    { duration: '2m', target: 300 },
+    { duration: '2m', target: 200 },
+    { duration: '1m', target: 0 },
   ]
 };
 const baseUrl = 'http://localhost:3000';

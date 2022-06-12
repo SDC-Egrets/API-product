@@ -24,12 +24,9 @@ describe('test unit API for /products/:product_id using product id: 37312', () =
       description: joi.string(),
       category: joi.string(),
       default_price: joi.number(),
-      features: [
-        {feaure: joi.string(),
-         value: joi.string()}
-      ]
+      features: joi.array()
     })
-    return frisby.get(baseUrl).then((result)=>expect(schema.validate(result)))
+    return frisby.get(baseUrl).then((result)=>expect(schema.validate(result._json).error).toBe(undefined))
   });
 
   it('should send back correct product informatioin', () => {
