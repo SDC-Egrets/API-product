@@ -2,7 +2,7 @@ const db = require('./db')
 
 module.exports = {
   getProducts: function (callback) {
-    db.query('SELECT * FROM product ORDER BY id ASC LIMIT 10')
+    db.query('SELECT * FROM product ORDER BY id ASC LIMIT 100')
     .then((result) => callback(null, result.rows))
     .catch((err) => callback(err, null))
   },
@@ -19,7 +19,7 @@ module.exports = {
   },
   getStyles: function(product_id, callback) {
     db.query(`select json_build_object('product_id', ${product_id}, 
-        'result', (select array_to_json(array_agg(json_build_object(
+        'results', (select array_to_json(array_agg(json_build_object(
           'style_id', s.id, 'name', s.name, 'original_price', s.original_price, 'sale_price', s.sale_price, 'default?', s.default_style,
           'photos', 
           (case
