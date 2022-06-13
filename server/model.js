@@ -2,7 +2,7 @@ const db = require('./db')
 
 module.exports = {
   getProducts: function (callback) {
-    db.query('SELECT * FROM product ORDER BY id ASC LIMIT 100')
+    db.query('SELECT * FROM product ORDER BY id ASC LIMIT 1000')
     .then((result) => callback(null, result.rows))
     .catch((err) => callback(err, null))
   },
