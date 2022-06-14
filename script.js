@@ -7,11 +7,19 @@ export const requests = new Counter('http_reqs');
 export const failures = new Rate('failed_requests');
 
 export const options = {
-  vus: 100,
-  duration: '15s',
+  scenarios: {
+    constant_request_rate: {
+        executor: 'constant-arrival-rate',
+        rate: 1000,
+        timeUnit: '1s',
+        duration: '30s',
+        preAllocatedVUs: 100,
+        maxVUs: 200,
+    }
+  },
   thresholds: {
-    failed_requests: ['rate<0.01'],
-    http_req_duration: ['p(100)<2000']
+    failed_requests: ['rate < 0.01'],
+    http_req_duration: ['p(100) < 2000']
   }
 };
 const baseUrl = 'http://localhost:3000/products';
@@ -19,9 +27,9 @@ const baseUrl = 'http://localhost:3000/products';
 const randomPorductId = () => Math.floor(Math.random() * 1000000)
 
 export default function () {
-  const url = `${baseUrl}/${randomPorductId()}/related`;
+  const url = `${baseUrl}/${randomPorductId()}/styles`;
   const result = http.get(url);
-  sleep(1);
+  // sleep(1);
   check(result, { 
     'status was 200': r => r.status === 200,
     'transaction time < 200ms': r => r.timings.duration < 200,

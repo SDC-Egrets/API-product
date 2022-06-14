@@ -1,24 +1,19 @@
 const db = require('./db')
 
 module.exports = {
-  getProducts: function (callback) {
-    db.query('SELECT * FROM product ORDER BY id ASC LIMIT 100')
-    .then((result) => callback(null, result.rows))
-    .catch((err) => callback(err, null))
-  },
-  getProductInfo: function(product_id, callback) {
+  getProductInfo: function(req, res) {
     db.query(`select json_build_object('id', p.id, 'name', p.name, 'slogan', p.slogan, 'description', p.description,
               'category', p.category, 'default_price', p.default_price, 'features', 
               (select array_to_json(array_agg(json_build_object('feature', f.feature, 'value', f.value)))
               from features as f 
-              where f.product_id = ${product_id}))
+              where f.product_id = ${req.params.product_id}))
               from product p
-              where p.id = ${product_id};`)
-    .then((result) => callback(null, result.rows[0].json_build_object))
-    .catch((err) => callback(err, null))
+              where p.id = ${req.params.product_id};`)
+    .then((result) => res.status(200).json(result.rows[0].json_build_object))
+    .catch((err) => res.status(500).json(err))
   },
-  getStyles: function(product_id, callback) {
-    db.query(`select json_build_object('product_id', ${product_id}, 
+  getStyles: function(req, res) {
+    db.query(`select json_build_object('product_id', ${req.params.product_id}, 
         'results', (select array_to_json(array_agg(json_build_object(
           'style_id', s.id, 'name', s.name, 'original_price', s.original_price, 'sale_price', s.sale_price, 'default?', s.default_style,
           'photos', 
@@ -34,13 +29,13 @@ module.exports = {
             else (select json_object_agg(skus.id, json_build_object('quantity', skus.quantity, 'size', skus.size))
             from skus where skus.style_id = s.id)
           end))))))
-      from styles s where s.product_id = ${product_id};`)
-    .then((result) => callback(null, result.rows[0].json_build_object))
-    .catch((err) => callback(err, null))
+      from styles s where s.product_id = ${req.params.product_id};`)
+    .then((result) => res.status(200).json(result.rows[0].json_build_object))
+    .catch((err) => res.status(500).json(err))
   },
-  getRelated: function(product_id, callback) {
-    db.query(`select array_agg(related_product_id) from related where current_product_id = ${product_id};`)
-    .then((result) => callback(null, result.rows[0].array_agg))
-    .catch((err) => callback(err, null))
+  getRelated: function(req, res) {
+    db.query(`select array_agg(related_product_id) from related where current_product_id = ${req.params.product_id};`)
+    .then((result) => res.status(200).json(result.rows[0].json_build_object))
+    .catch((err) => res.status(500).json(err))
   }
 }
