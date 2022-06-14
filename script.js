@@ -19,7 +19,7 @@ const baseUrl = 'http://localhost:3000/products';
 const randomPorductId = () => Math.floor(Math.random() * 1000000)
 
 export default function () {
-  const url = `${baseUrl}/${randomPorductId()}/styles`;
+  const url = `${baseUrl}/${randomPorductId()}/related`;
   const result = http.get(url);
   sleep(1);
   check(result, { 
