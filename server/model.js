@@ -2,6 +2,7 @@ const db = require('./db')
 
 module.exports = {
   getProductInfo: function(req, res) {
+    console.log(req.url);
     db.query(`select json_build_object('id', p.id, 'name', p.name, 'slogan', p.slogan, 'description', p.description,
               'category', p.category, 'default_price', p.default_price, 'features', 
               (select array_to_json(array_agg(json_build_object('feature', f.feature, 'value', f.value)))
