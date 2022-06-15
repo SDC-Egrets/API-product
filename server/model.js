@@ -2,7 +2,6 @@ const db = require('./db')
 
 module.exports = {
   getProductInfo: function(req, res) {
-    console.log(req.url);
     db.query(`select json_build_object('id', p.id, 'name', p.name, 'slogan', p.slogan, 'description', p.description,
               'category', p.category, 'default_price', p.default_price, 'features', 
               (select array_to_json(array_agg(json_build_object('feature', f.feature, 'value', f.value)))
@@ -14,6 +13,7 @@ module.exports = {
     .catch((err) => res.status(500).json(err))
   },
   getStyles: function(req, res) {
+    console.log(req.url);
     db.query(`select json_build_object('product_id', ${req.params.product_id}, 
         'results', (select array_to_json(array_agg(json_build_object(
           'style_id', s.id, 'name', s.name, 'original_price', s.original_price, 'sale_price', s.sale_price, 'default?', s.default_style,
