@@ -2,7 +2,7 @@ const { Pool } = require('pg')
 
 const credentials = {
   user: "postgres",
-  host: "3.92.208.75",
+  host: "44.202.246.93",
   database: "sdc",
   password: "1",
   port: 5432,
