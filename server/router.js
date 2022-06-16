@@ -4,7 +4,7 @@ const router = require('express').Router()
 router.get('/products/:product_id', controller.getProductInfo)
 router.get('/products/:product_id/styles', controller.getStyles)
 router.get('/products/:product_id/related', controller.getRelated)
-router.get('/loaderio-7190a7dbb03ad1b0b862f7fb22d1ca8d.txt', (req, res) => 
-  res.status(200).send('loaderio-7190a7dbb03ad1b0b862f7fb22d1ca8d'));
+router.get('/loaderio-f7dc770c2957e8a64c6f20cfe6759bde.txt', (req, res) => 
+  res.status(200).send('loaderio-f7dc770c2957e8a64c6f20cfe6759bde'));
 
 module.exports = router

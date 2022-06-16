@@ -20,7 +20,3 @@ pool.query('SELECT NOW()')
 })
 
 module.exports = pool
-
-
-
-
